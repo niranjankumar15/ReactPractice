@@ -1,0 +1,136 @@
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React JS -->
+    <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+    <script type="text/javascript" src="data.js"></script>
+    <script type="text/babel" src="app2.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
+    />
+    <link
+  rel="stylesheet"
+  href="https://fonts.googleapis.com/icon?family=Material+Icons"
+/>
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .heading2 {
+                @apply pb-4 text-4xl font-bold md:text-4xl bg-clip-text 
+                        bg-gradient-to-r from-blue-800 via-purple-800 to-red-700 
+                        text-transparent inline-block cursor-default 
+                        hover:bg-gradient-to-l transition-all duration-700 ease-in
+            }
+            .btn-primary {
+                @apply rounded-lg p-2 px-4 bg-purple-800 hover:bg-purple-500 text-white
+            }
+            .btn-cancel {
+                @apply rounded-lg p-2 px-4 ml-4 bg-gray-800 hover:bg-gray-400 text-white
+            }
+        }
+    </style>
+  </head>
+  <body>
+    <div class="relative">
+        <div id="root"></div>
+    </div>
+    <script type="text/babel">        
+        const element = (
+        <>
+            <div className='bg-purple-900 text-white shadow'>
+                <Container type='header' className='py-6 flex justify-between'>
+                    <div>
+                        <svg className="fill-current md:mt-0 w-20 md:w-24 h-10 header-logo">
+                            <title>Xebia</title> 
+                            <use href="images/sprite.svg#xebia_logo"></use> 
+                        </svg>
+                    </div>
+                    <div className='self-center italic'><Tick className='Hello' /></div>
+                </Container>
+            </div>
+            <div className='bg-white'>
+                <Container type='main' className='main-content py-6'>
+                    <article className="card text-pretty mb-4">
+                        <>
+                            <h2 className="heading2">
+                                Welcome to Reactive Homepage!!!
+                            </h2>
+                            <div className='mb-4'>
+                                <Hello />
+                            </div>
+                        </>
+                        <div>
+                            <div className='mb-4 bg-purple-100 p-4 rounded-lg'>
+                                <div className='flex justify-between'>
+                                    <ShowList type='birds' />
+                                    <ShowList type='misc' />
+                                    <ShowList type='fruits' />
+                                </div>
+                            </div>                        
+                            <div className='mb-4 bg-blue-100 p-4 rounded-lg'>
+                                <div className='flex justify-evenly'>
+                                    <List className='align-self-start' items='fruit' heading='Fruits' color='blue' />    
+                                    <List className='align-self-end' items='Misc' heading='Misc' color='green' />    
+                                    <List className='align-self-start' items='Birds' heading='Birds' color='red' />    
+                                </div>
+                            </div>
+                        </div>                        
+                        <div className='mb-4 bg-green-100 p-4 rounded-lg'>
+                            <div className='flex1 justify-evenly1'>
+                                <ListFilter type='fruits' className='align-self-start' items='fruit' heading='Fruits' color='blue' />
+                            </div>
+                            <div className='mt-4 bg-blue-100 p-4 rounded-lg'>
+                                <ListFilterDeep type='fruits' className='align-self-start' items='fruit' heading='Fruits' color='blue' />
+                            </div>
+                        </div>
+                    </article>
+                    <div className='border p-3 rounded-lg'>
+                        <div className='bg-gray-100 p-4 rounded-lg shadow'>
+                            <form action='#' className='mb-4'>
+                                <ShowName className='button px-3' actionText='Disco' resetText='Reset' />
+                            </form>
+                        </div>
+                    </div>
+                </Container>            
+            </div>
+            <div className='bg-gray-100 py-4 flex content-center grow border-t border-gray-200 border-sold align-center shadow'>
+                <Container type='footer' size='' className='xebia-footer'>
+                    <div className='bold'>
+                        <Copyright text='Xebia Pvt. Ltd.'  />
+                    </div>
+                </Container>
+            </div>
+        </>
+        )
+        
+        
+        const Demo = ({props}) => {
+
+            //console.log({props})
+            const ele = () => { 
+                return (
+                        (props.tagName = 'h1' ? 'I am H1' : props.text)
+                )
+            }
+            return (<span>element</span>)
+            //console.log(ele())
+        }
+        const Elem = ({message}) => { 
+            console.log({message})
+            return ( 
+                <div>
+                    {message == 'Hello' ? 'The message was "Hello!"' : message.message} 
+                </div>
+            )
+        }
+        
+        
+        ReactDOM.render(element, document.getElementById('root'))
+    </script>
+  </body>
+  

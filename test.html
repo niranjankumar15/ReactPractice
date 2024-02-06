@@ -1,0 +1,123 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- React JS -->
+  <script src="https://unpkg.com/react@16.12.0/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
+  <script type="text/javascript" src="data.js"></script>
+  <script type="text/babel" src="app2.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
+  />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  />
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .heading2 {
+        @apply pb-4 text-4xl font-bold md:text-4xl bg-clip-text 
+                        bg-gradient-to-r from-blue-800 via-purple-800 to-red-700 
+                        text-transparent inline-block cursor-default 
+                        hover:bg-gradient-to-l transition-all duration-700 ease-in;
+      }
+      .btn-primary {
+        @apply rounded-lg p-2 px-4 bg-purple-800 hover:bg-purple-500 text-white;
+      }
+      .btn-cancel {
+        @apply rounded-lg p-2 px-4 ml-4 bg-gray-800 hover:bg-gray-400 text-white;
+      }
+    }
+  </style>
+  <script type="text/babel">
+    const tableData = [
+      { name: "ABC", address: "Pune", phone: "9876543210" },
+      { name: "XYZ", address: "Nashik", phone: "9876543210" },
+      { name: "PQR", address: "Mumbai", phone: "9876543210" },
+      { name: "PQR", address: "Mumbai", phone: "9876543210" },
+    ]
+    
+    
+    function Table() {
+    // stored the address in state
+    const [address, setAddress] = React.useState(() => address || 'Pune');
+
+    // click handler for buttons
+    const handleClick = (val) => {
+      // updating new address to state 
+      setAddress(val);
+    };
+
+    //filter the records based on address
+    const filteredData = tableData.filter((item) => {
+        return item.address === address;
+    });
+
+    // extracting jon-duplicate records to a new array  
+    const addresses = [...new Set(tableData.map(item => item.address))];
+    
+  
+    if (filteredData.length > 0) {
+        return (
+            <div className="container p-4 bg-gray-100 rounded-lg mx-auto my-4">
+                <div className='p-4'>
+                  {/* iterating addresses set to render only disctinct addresses */}
+                  {addresses.map((val, key) => (
+                      <a className={'btn btn-primary mr-3 '}
+                      key={'action' + key} href="#" onClick={() => handleClick(val)}>{val}</a>
+                  ))}
+                </div>
+                <table className="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Phone No</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {filteredData.map((val, key) => (
+                            <tr key={"tr" + key} className={key % 2 === 0 ? "even" : "odd"}>
+                                <td>{val.name}</td>
+                                <td>{val.address}</td>
+                                <td>{val.phone}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <div><br /><hr /><br /></div>
+                <ul>
+                    {filteredData.map((val, key) => (
+                        <li key={"li" + key}>{val.name} || {val.phone} || {val.address}</li>
+                    ))}
+                </ul>
+            </div>
+        );
+    } else {
+        return (
+            <div className="container p-4 bg-gray-100 rounded-lg mx-auto my-4">
+                <>No Data</>
+            </div>
+        );
+    }
+}
+
+  const element = (
+    <div>
+      <Table />
+    </div>
+  )
+
+  ReactDOM.render(element, document.getElementById("root"));
+  </script>
+</head>
+<body>
+  <div class="relative">
+    <div id="root"></div>
+  </div>
+</body>
