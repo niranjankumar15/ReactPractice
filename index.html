@@ -7,6 +7,8 @@
     <script src="https://unpkg.com/react-dom@16.12.0/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone@7.8.3/babel.js"></script>
     <script type="text/javascript" src="data.js"></script>
+    <!-- <script type="module" src="testing.js"></script> -->
+    <script type="text/javascript" src="testing.js"></script>
     <script type="text/babel" src="utils.js"></script>
     <script type="text/babel" src="app2.js"></script>
     <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,6 +49,9 @@
 .table-th {
     @apply  capitalize text-left px-4 py-3 bg-blue-900 text-white
 }
+.comment {
+    @apply w-full block  px-4 py-2 mb-4 text-xs rounded-lg shadow
+}
 
     </style>
   </head>
@@ -63,67 +68,65 @@
                 <div>
                     <svg className="fill-current md:mt-0 w-20 md:w-24 h-10 header-logo">
                         <title>Xebia</title> 
-                        <use href="images/sprite.svg#xebia_logo"></use> 
+                        <use href="images/sprite.svg"></use> 
                     </svg>
                 </div>
                 <div className='self-center italic'><Tick className='Hello' /></div>
             </Container>
         </div>
-            <div className='bg-white'>
-                <Container type='main' className='main-content py-6'>                    
-                    <div className='border p-3 rounded-lg mb-6 '>
-                        <div className='bg-gray-100 p-4 rounded-lg shadow'>
-                            <form action='#' className='mb-4'>
-                                <ShowName className='button px-3' actionText='Disco' resetText='Reset' />
-                            </form>
-                        </div>
+        <div className='bg-white'>
+            <Container type='main' className='main-content py-6'>                    
+                <div className='border p-3 rounded-lg mb-6 '>
+                    <div className='bg-gray-100 p-4 rounded-lg shadow'>
+                        <ShowUser className='button px-3' actionText='Submit' resetText='Reset' />
                     </div>
-                    <article className="card text-pretty mb-4">
-                        <>
-                            <h2 className="heading2">
-                                Welcome to Reactive Homepage!!!
-                            </h2>
-                            <div className='mb-4'>
-                                <Hello />
-                            </div>
-                        </>
-                        <div>
-                            <div className='mb-4 bg-purple-100 p-4 rounded-lg'>
-                                <div className='flex justify-between'>
-                                    <ShowList type='birds' />
-                                    <ShowList type='misc' />
-                                    <ShowList type='fruits' />
-                                </div>
-                            </div>                        
-                            <div className='mb-4 bg-blue-100 p-4 rounded-lg'>
-                                <div className='flex justify-evenly'>
-                                    <List className='align-self-start' items='fruits' heading='Fruits' color='blue' />    
-                                    <List className='align-self-end' items='misc' heading='Misc' color='green' />    
-                                    <List className='align-self-start' items='birds' heading='Birds' color='red' />    
-                                </div>
+                </div>
+                <article className="card text-pretty mb-4">
+                    <>
+                        <h2 className="heading2">
+                            Welcome to Reactive Homepage!!!
+                        </h2>
+                        <div className='mb-4'>
+                            <Hello />
+                        </div>
+                    </>
+                    <div>
+                        <div className='mb-4 bg-purple-100 p-4 rounded-lg'>
+                            <div className='flex justify-between'>
+                                <ShowList type='birds' />
+                                <ShowList type='misc' />
+                                <ShowList type='fruits' />
                             </div>
                         </div>                        
-                        <div className=''>
-                            <div className='mb-6 bg-indigo-100 p-4 rounded-lg'>
-                                <ListFilter type='fruits' className='align-self-start' items='fruit' heading='Fruits' themeColor='pink' />
-                            </div>
-                            <div className='mt-6 bg-pink-100 p-4 rounded-lg'>
-                                <ListFilterDeep type='fruits' className='align-self-start' items='fruit' heading='Fruits' themeColor='red' />
-                            </div>
-                            <div className='mt-6 bg-blue-100 p-4 rounded-lg'>
-                                <MartItemList type='fruits' className='align-self-start' items='fruits' heading='Big Bazaar' themeColor='indigo' />
+                        <div className='mb-4 bg-blue-100 p-4 rounded-lg'>
+                            <div className='flex justify-evenly'>
+                                <List className='align-self-start' items='fruits' heading='Fruits' color='blue' />    
+                                <List className='align-self-end' items='misc' heading='Misc' color='green' />    
+                                <List className='align-self-start' items='birds' heading='Birds' color='red' />    
                             </div>
                         </div>
-                    </article>
-                </Container>            
-            </div>
-            <div className='bg-gray-100 py-4 flex content-center grow border border-gray-200 border-solid align-center shadow'>
-                <Container type='footer' size='' className='xebia-footer'>
-                    <div className='font-semiBold'>
-                        <Copyright text='Xebia Pvt. Ltd.'  />
+                    </div>                        
+                    <div className=''>
+                        <div className='mb-6 bg-indigo-100 p-4 rounded-lg'>
+                            <ListFilter type='fruits' className='align-self-start' items='fruit' heading='Fruits' themeColor='pink' />
+                        </div>
+                        <div className='mt-6 bg-pink-100 p-4 rounded-lg'>
+                            <ListFilterDeep type='fruits' className='align-self-start' items='fruit' heading='Fruits' themeColor='red' />
+                        </div>
+                        <div className='mt-6 bg-blue-100 p-4 rounded-lg'>
+                            <MartItemList type='fruits' className='align-self-start' items='fruits' heading='Big Bazaar' themeColor='indigo' />
+                        </div>
                     </div>
-                </Container>
-            </div>
+                </article>
+            </Container>            
+        </div>
+        <div className='bg-gray-100 py-4 flex content-center grow border border-gray-200 border-solid align-center shadow'>
+            <Container type='footer' size='' className='xebia-footer'>
+                <div className='font-semiBold'>
+                    <Copyright text='bSwift Pvt. Ltd.'  />
+                </div>
+            </Container>
+        </div>
         </>
         )    
         

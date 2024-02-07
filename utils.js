@@ -72,7 +72,8 @@ function SearchBox({label, color, handleEvent}){
 }
 
 
-function Iterator({listObj, ...rest}){
+
+function Iterator({listObj, handleClick, ...rest}){
     const ele = rest.tagName ? rest.tagName : 'span'
     return(
         <>
@@ -87,18 +88,14 @@ function Iterator({listObj, ...rest}){
     )
 }
 
-function NavPills({objList, label, ...rest}){
-    const [ItemType, setItemType] = React.useState('fruits')
-    // const handleClick = (item) => ()
-    return( 
-        objList.map((item, i) => (
-        <button key={rest.keyName+'A'+i}  
-            className={'px-4 mr-4 btn-'+rest.themeColor+' capitalize'} 
-            onClick={() => {
-                setItemType(item[rest.filterBy])
-                console.log('%c' + ItemType, 'color: pink')
-                }}>
-            {item[label]}
+function NavPills({objList, label, handleEvent, ...rest}){
+    // handleEvent handler need to be added to parent component
+    return( objList.map((item, i) => (
+        <button 
+            key={rest.keyName+'A'+i}  
+            className={'px-4 btn-'+ rest.themeColor +' capitalize ' + (i < objList.length-1 ? ' mr-4' : '')} 
+            onClick={() => handleEvent(item) }>
+            {label ? item[label] : item}
         </button>
     )))
 }

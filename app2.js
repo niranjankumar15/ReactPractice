@@ -1,3 +1,97 @@
+
+function ShowUser({className, actionText, resetText}){
+    const getUserName = () => {
+        return 'User'
+    }
+
+    // updating state via function
+    const [name, setName] = React.useState('')
+    const [error, setError] = React.useState(null);
+    const [status, setStatus] = React.useState('typing');
+
+    if (status === 'success') {
+        return <h1 className='heading2 capitalize'>Welcome {name}</h1>
+    }
+
+    async function handleSubmit(e) {
+        //e.peventDefault()
+        setStatus('submitting')
+        try{
+            console.log(status, 'awaiting')
+            await submitForm(name)
+            setStatus('success')
+            console.log(status, 'after submit')
+        } catch (err){
+            setStatus('typing')
+            setError(err)
+            console.log(status, 'err')
+        }
+    }
+
+    
+    // updating state from input change
+    const handleChange = event => {
+        setName(event.target.value)
+    }
+    
+    function submitForm(name) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                let shouldError = name !== 'niranjan'
+                if(shouldError) {
+                    reject( new Error('Please try again!!!'))
+                } else{
+                    resolve()
+                }
+            }, 2000)
+        })
+    }
+    return (
+        <>
+        {/* {<div {...rest} />} */}
+        <h1 className='mb-3 text-2xl'>
+            <div className='font-semibold mb-3'>Registration</div>
+            {name ? <span className='text-purple-700'>Welcome <strong className='text-purple-900'>{name}</strong> to React JS World!</span> : ' ' + name}
+        </h1>
+        <form onSubmit={handleSubmit}>
+            <label 
+                htmlFor='nameInput' 
+                className='font-semibold mr-3 text-lg'
+            >
+                Name: 
+            </label>
+            <input
+                type='text' 
+                id='nameInput' 
+                value={name}
+                placeholder='Enter your name' 
+                className='px-2 border rounded-lg leading-normal h-12' 
+                onChange={handleChange} 
+            />
+            <div className='mt-4'>
+                {/* Setting state on click event */}
+                <button 
+                    className={className?className+' btn-primary':className+' '} 
+                    disabled={
+                        name.length === 0 ||
+                        status === 'submitting'
+                    }                    
+                >
+                    {actionText}
+                </button>
+                {/* <button className={className?className+' ml-4 btn-cancel':className+' '} type='button' onClick={event => setName('')}>{resetText}</button> */}
+            </div>
+            {
+                error !== null &&
+                <p className="Error text-red-800 py-3">
+                    {error.message} {name}
+                </p>
+            }
+        </form>
+        </>
+    )
+}
+
 function ShowName({className, actionText, resetText}){
 //const ShowName = ({className, actionText, resetText}) => {
     //
@@ -21,15 +115,17 @@ function ShowName({className, actionText, resetText}){
         {/* {<div {...rest} />} */}
         <h1 className='mb-3 text-2xl'>
             <div className='font-semibold mb-3'>Registration</div>
-            {name ? <span className='text-purple-700'>Welcome <strong className='text-purple-900'>{name}</strong> to Xebia!</span> : ' ' + name}
+            {name ? <span className='text-purple-700'>Welcome <strong className='text-purple-900'>{name}</strong> to React JS World!</span> : ' ' + name}
         </h1>
-        <label htmlFor='nameInput' className='font-semibold mr-3 text-lg'>Name: </label>
-        <input id='nameInput' type='text' className='px-2 border rounded-lg leading-normal h-12' onChange={handleChange} />
-        <div className='mt-4'>
-            {/* Setting state on click event */}
-            <button className={className?className+' btn-primary':className+' '} type='button' onClick={event => setName('Disco')}>{actionText}</button>
-            <button className={className?className+' ml-4 btn-cancel':className+' '} type='button' onClick={event => setName('')}>{resetText}</button>
-        </div>
+        <form action='#' className='mb-4'>            
+            <label htmlFor='nameInput' className='font-semibold mr-3 text-lg'>Name: </label>
+            <input id='nameInput' type='text' className='px-2 border rounded-lg leading-normal h-12' onChange={handleChange} />
+            <div className='mt-4'>
+                {/* Setting state on click event */}
+                <button className={className?className+' btn-primary':className+' '} type='button' onClick={event => setName('Disco')}>{actionText}</button>
+                <button className={className?className+' ml-4 btn-cancel':className+' '} type='button' onClick={event => setName('')}>{resetText}</button>
+            </div>
+        </form>
         </>
     )
 }
@@ -305,9 +401,14 @@ function MartItemList({items, heading, themeColor='purple', ...rest}){
     // updating state from input change
     const handleClick = event => {
         // const evtValue =  event.target.value ? event.target.value : getItemType()
+        console.log(event.target.value, 'event value')
         setItemType(event.target.value)
     }
-    
+
+    const handleEvent = (item) => {
+        setItemType(item)
+    }
+
     
     const itemFilter = martList.filter(item => {
         return item[filterBy] === itemType
@@ -320,6 +421,9 @@ function MartItemList({items, heading, themeColor='purple', ...rest}){
     
     // <NavPills objList={martList} themeColor={themeColor} label="category" filterBy={filterBy} />
     
+    const sortedAsc = new Map([...martList].sort((id, label) => (id[0] - label[0])));
+    // const sortedAsc = new Map([...martList].sort((id, label) => (id[1] > label[1] ? 1 : -1)));
+    console.log(sortedAsc, 'sorted Array')
     
     const anchorList = martList.map((item, i) => (
         <button key={keyName+'A'+i}  
@@ -409,14 +513,24 @@ function MartItemList({items, heading, themeColor='purple', ...rest}){
             <div {...rest}></div>
             <SearchBox label='Search Item Type' color={themeColor} handleClick={handleClick} />
     
-            <div className='bg-purple-100 rounded-lg p-4 flex justify-between mb-4'>
-                {anchorList}
+            <div className='bg-pink-200 rounded-lg p-4 mb-4'>
+                <span className={'comment bg-pink-100'}><i>showing buttons via inline <b>anchorList</b> while passing label directly from <b>backend data</b> </i></span>
+                <div className='flex justify-between'>
+                    {anchorList}
+                </div>
             </div>
-            <div className='bg-green-100 rounded-lg p-4 flex justify-between mb-4'>
-                {anchorListNew}
+            <div className='bg-green-200 rounded-lg p-4 mb-4'>
+                    <span className={'comment bg-green-100'}><i>showing buttons via inline <b>anchorListNew</b> while passing label from modified <b>Distinct List</b> </i></span>
+                    <div className='flex justify-between'>
+                        {anchorListNew}
+                    </div>
             </div>
-            <div className='bg-indigo-100 rounded-lg p-4 flex justify-between mb-4'>
-                <NavPills objList={anchorListDistinct} themeColor={themeColor} label="category" filterBy={filterBy} />
+            <div className='bg-indigo-200 rounded-lg p-4 mb-4'>
+                <span className={'comment bg-indigo-100'}><i>showing buttons via <b>NavPills</b> handling event & label dynamically by passing modified <b>Distinct List</b> </i></span>
+                <div className='flex justify-between'>
+                    <NavPills objList={anchorListDistinct} themeColor={themeColor} handleEvent={handleEvent} />
+                </div>
+                {/* <NavPills objList={martList} themeColor={themeColor} label="category" filterBy={filterBy} /> */}
             </div>
             <>{listItems}</>
         </>

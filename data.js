@@ -9,6 +9,7 @@ const itemList = [{
     names: ['pigeon', 'parrot', 'duck', 'swan', 'sparrow', 'crow']
 }]
 
+
 const martList = [{
     id: 1, label:'fruits', category: 'fruits', description: 'Fruits',
     names: ['apple', 'banana', 'mango', 'Melon', 'dragon'],
@@ -58,3 +59,5 @@ const itemListAll = [
     {id:8, type: 'birds', name: 'parrot', description: 'cage'}, 
     {id:9, type: 'birds', name: 'duck', description: 'water'}
 ]
+
+// export {itemList, itemListAll, martList}
